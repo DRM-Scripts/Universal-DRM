@@ -1,0 +1,85 @@
+{
+  "name": "Universal-DRM",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js"
+  },
+  "apps": [
+    {
+      "exec_interpreter": "node",
+      "name": "auth-app",
+      "script": "src/server.js",
+      "post_update": [
+        "echo App has been updated, running yarn install...",
+        "yarn install",
+        "echo App is being restarted now"
+      ]
+    }
+  ],
+  "author": "DRM-Scripts",
+  "license": "ISC",
+  "dependencies": {
+    "akamai-auth-token": "^1.0.7",
+    "axios": "^0.19.0",
+    "basic-auth-connect": "^1.0.0",
+    "bcrypt": "^3.0.0",
+    "child-process-promise": "^2.2.1",
+    "concat": "^1.0.3",
+    "connect-mongo": "^2.0.1",
+    "crypto-js": "^3.1.9-1",
+    "debug-http": "^1.1.0",
+    "dotenv": "^6.1.0",
+    "download": "^7.1.0",
+    "download-file": "^0.1.5",
+    "es6-promise-pool": "^2.5.0",
+    "express": "^4.16.3",
+    "express-ipfilter": "^0.3.1",
+    "express-session": "^1.15.6",
+    "fast-glob": "^3.0.3",
+    "filenamify": "^4.1.0",
+    "fs-extra": "^8.0.1",
+    "got": "^9.6.0",
+    "hls-parser": "^0.1.8",
+    "http-debug": "^0.1.2",
+    "jsonfile": "^5.0.0",
+    "jsonwebtoken": "^8.3.0",
+    "lint": "^1.1.2",
+    "m3u8-reader": "^1.1.0",
+    "m3u8-write": "^1.0.0",
+    "merge": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.2",
+    "morgan": "^1.9.1",
+    "mp4-box-encoding": "^1.4.1",
+    "mp4-stream": "^3.1.0",
+    "mpd-parser": "file:mpd-parser",
+    "ncp": "^2.0.0",
+    "node-fetch": "^2.5.0",
+    "node-fetch-retry": "^1.0.1",
+    "notp": "^2.0.3",
+    "otplib": "^10.0.0",
+    "portscanner": "^2.2.0",
+    "promise-request-retry": "^1.0.1",
+    "promise-retry": "^1.1.1",
+    "redis": "^2.8.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "request-promise-retry": "^1.0.0",
+    "uuid": "^3.3.2",
+    "xml2js": "^0.4.19",
+    "xmldom": "^0.1.27"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "jest": "^24.9.0"
+  }
+}

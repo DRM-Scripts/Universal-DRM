@@ -1,0 +1,113 @@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search)
+var service = urlParams.get('service') || 'sling'
+var host = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+    $(document).ready(function() {
+        new ClipboardJS('.copy-button');
+        var tableArray = [];
+        $.getJSON(`/${service}/scheduleStatus.json`, function(json) {
+            for (var i = 0; i < json.length; i++) {
+                let channel = json[i]
+                var iArray = [];
+                iArray.push(JSON.stringify(channel));
+                iArray.push(channel.channel_name);
+                iArray.push(channel.assetTitle);
+                iArray.push(channel.guid);
+                iArray.push(channel.active ? `<button class="copy-button" data-clipboard-text="${host}/static/${service}-${channel.guid}/playlist.m3u8">Copy URL</button>` : null);
+                iArray.push('<a href="#" class="refresh-button">Start</a>');
+                iArray.push('<a href="#" class="stop-button">Stop</a>');
+                iArray.push(channel.active);
+                
+                tableArray.push(iArray);   
+            }
+            var table = $('#example').DataTable( {
+                data: tableArray,
+                columns: [
+                    { title: "meta" },
+                    { title: "Name" },
+                    { title: "Event" },
+                    { title: "ID" },
+                    { title: "URL" },
+                    { title: "Start" },
+                    { title: "Stop" },
+                    { title: "Active" },
+                    
+                ]
+            });
+            table.column(0).visible(false);
+
+            $('#example tbody').on( 'click', '.refresh-button', function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+                var metaData = JSON.parse(data[0]);
+                var streamApi = `/${service}/build`;
+                var qs = {
+                    channelId: metaData.guid,
+                    m3u8: true
+                }
+                $.getJSON( streamApi, qs,
+                    function(data) {
+                        if (data.status === 'success') {
+                            var restreamUrl = host + `/static/${service}-` + metaData.guid + '/playlist.m3u8'
+                            table.cell(row, 4).data('<button class="copy-button" data-clipboard-text="'+restreamUrl+'">Copy URL</button>').draw();
+                            table.cell(row, 7).data(true).draw();
+                        } else {
+                            alert('error getting stream :(')
+                        }
+                    }).fail(function() { 
+                        alert('error getting stream'); 
+                    }); 
+            });
+
+            $('#example tbody').on( 'click', '.stop-button', function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+                var metaData = JSON.parse(data[0]);
+                var streamApi = "/video/stop";
+                var qs = {
+                    id: `${service}-${metaData.guid}`
+                }
+                $.getJSON( streamApi, qs,
+                    function(data) {
+                        if (data.status === 'success') {
+                            table.cell(row, 4).data('').draw();
+                            table.cell(row, 7).data(false).draw();
+                        } else {
+                            alert('error stopping')
+                        }
+                    }).fail(function() { 
+                        alert('ultra error from stopping'); 
+                    }); 
+            });
+        }); 
+    });
+</script>
+
+<div class="panel-top">
+        <script>document.write(`<h1>${service}</h1>`);</script>
+        <a href="?service=bell">bell</a>
+        <a href="?service=dstv">dstv</a>
+        <a href="?service=dtv-now">dtv-now</a>
+        <a href="?service=2001-live">2001 Live</a>
+        <a href="?service=rap">rap</a>
+        <a href="?service=tatasky">tatasky</a>
+        <a href="?service=tsn">tsn</a>
+        <a href="?service=sling">sling</a>
+</div>
+<style>
+    .panel-top {
+        text-align: center;
+    }
+</style>
+<div class="container">
+    <div id="dataTable">
+    <table id="example" class="display" cellspacing="0" width="100%"></table>
+    </div>
+</div>
+
