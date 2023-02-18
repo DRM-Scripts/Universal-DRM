@@ -16,9 +16,10 @@ Please understand how this works first before attempting to try however the code
    (.env.example) & rename .env
 - edit panel user name details and add whitelisted ips in
    (src/server.js)
-  ips=line13,login details=line129
-   (default details u=sinep p=sllab)
-   
-   pm2 --name Universal-DRM start npm -- start
 
-browse to http://ipofserver:3001/secret/start.html or http://ipofserver:3001/secret/index.html
+  ips=line13
+  login details=line129 - (default details u=sinep p=sllab)
+   
+    pm2 --name Universal-DRM start npm -- start
+
+browse to http://ipofserver:3001/secret/start.html or http://ipofserver:3001/secret/index.html & login with details set
