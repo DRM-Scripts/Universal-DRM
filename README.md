@@ -12,14 +12,13 @@ Please understand how this works first before attempting to try however the code
     sudo npm install
     sudo chmod -R 777 /home/Universal-DRM/
 
- - add username & password details where required in env example file
+- add username & password details where required in env example file
    (.env.example) & rename .env
- - edit panel user name details and add whitelisted ips in
+- edit panel user name details and add whitelisted ips in
    (src/server.js)
-
-    ips=line13,login details=line129
-    (default details u=sinep p=sllab)
-
-    pm2 --name Universal-DRM start npm -- start
+  ips=line13,login details=line129
+   (default details u=sinep p=sllab)
+   
+   pm2 --name Universal-DRM start npm -- start
 
 browse to http://ipofserver:3001/secret/start.html or http://ipofserver:3001/secret/index.html
