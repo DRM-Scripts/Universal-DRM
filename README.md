@@ -9,7 +9,7 @@ Please understand how this works first before attempting to try however the code
     sudo npm install --global pm2
     cd /home
     git clone https://github.com/DRM-Scripts/Universal-DRM
-    cd /home/Universal-DRM/
+    cd /Universal-DRM
     sudo npm install
     sudo chmod -R 777 /home/Universal-DRM/
 
