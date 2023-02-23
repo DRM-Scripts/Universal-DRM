@@ -7,6 +7,7 @@ Please understand how this works first before attempting to try however the code
     sudo apt-get install npm gcc g++ make ffmpeg build-essential zip unzip redis-server git aria2 -y
     sudo npm install --global yarn
     sudo npm install --global pm2
+    cd /home
     git clone https://github.com/DRM-Scripts/Universal-DRM
     cd /home/Universal-DRM/
     sudo npm install
