@@ -26,3 +26,5 @@ Please understand how this works first before attempting to try however the code
 browse to http://ipofserver:3001/secret/start.html or http://ipofserver:3001/secret/index.html & login with details set
 
 for error logging run node src/server.js from inside Universal-DRM folder to see live logging
+
+Credit: Neo - Orignal Version - https://github.com/Neo-1977/N0DE-DL
