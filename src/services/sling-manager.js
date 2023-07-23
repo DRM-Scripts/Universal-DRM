@@ -67,7 +67,8 @@ class SlingManager {
   }
 
   getMpdInfo (channelId) {
-    let infoApi = `http://cbd46b77.cdn.cms.movetv.com/cms/api/channels/${channelId}/schedule/now/playback_info.qvt`
+    //let infoApi = `http://cbd46b77.cdn.cms.movetv.com/cms/api/channels/${channelId}/schedule/now/playback_info.qvt`//
+    let infoApi = `https://cbd46b77.cdn.cms.movetv.com/playermetadata/sling/v1/api/channels/${channelId}/schedule/now/playback_info.qvt`
     return rp.get({ url: infoApi, json: true })
   }
 
